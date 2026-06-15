@@ -1,0 +1,4 @@
+# Defined in - @ line 1
+function make --wraps='remake' --description 'Run Remake instead of Make'
+  remake $argv;
+end

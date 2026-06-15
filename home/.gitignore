@@ -1,0 +1,68 @@
+# old files kept only in Dropbox
+attic/
+
+# swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+.vim/undo/
+
+# macOS droppings
+.DS_Store
+
+# Vim droppings
+Session.vim
+.*.un~
+
+# temporary
+.netrwhist
+*~
+
+# ctags
+tags
+TAGS
+
+# generated files
+Brewfile.lock.json
+.config-mac/countdown-player/
+.config-mac/fish/fish_variables
+.config-mac/htop/htoprc
+.config-mac/pgcli/
+local-share-fonts/
+
+# AI tools
+.claude/
+
+# private/auth state
+.aws/
+.ssh/
+.pypirc
+.config-mac/gh/hosts.yml
+.config-mac/gcloud/
+.config-mac/op/
+.config-mac/openai.token*
+.irssi/certs/
+
+# generated or machine-local app state
+.config-mac/benchmarking.json
+.config-mac/capriole/
+.config-mac/coc/
+.config-mac/ct/
+.config-mac/gtk-2.0/
+.config-mac/iterm2/AppSupport
+.config-mac/jgit/
+.config-mac/librepcb.org/
+.config-mac/oni2/extensions/
+.config-mac/oni2/global/
+.config-mac/oni2/store/
+.config-mac/oni2/workspace/
+.config-mac/opencode/
+.config-mac/opensoundmeter/
+.config-mac/temporalio/
+.config-mac/uv/
+.config/karabiner/
+.config/coc/
+.vim/local/
+.vim/pack/
+.vim/plugged/

@@ -1,0 +1,34 @@
+[user]
+	email = benji@benjiyork.com
+	name = Benji York
+[core]
+	excludesfile = ~/.gitignore
+	pager =
+        #pager = delta
+[push]
+	default = simple
+  autoSetupRemote = true
+[alias]
+	co = checkout
+  mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+[diff]
+	noprefix = true
+	submodule = log
+[pull]
+	rebase = false
+[init]
+	defaultBranch = main
+[rerere]
+	enabled = true
+	autoUpdate = true
+[safe]
+        # it is OK if the git repo in these directories are owned by a different user
+	directory = /Users/Shared/lima-root/FLOW/impoil/1
+[blame]
+	ignoreRevsFile = .git-blame-ignore-revs
+	markIgnoredLines = true
+	markUnblamableLines = true
+[branch]
+	sort = committerdate
+[tag]
+	sort = version:refname

@@ -1,0 +1,6 @@
+# symlink-only or machine-managed config
+configstore
+dconf
+
+# this contains non-precious state
+countdown-player

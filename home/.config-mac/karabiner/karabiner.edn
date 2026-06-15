@@ -1,0 +1,137 @@
+{
+  :applications {
+    :slack ["^com.tinyspeck.slackmacgap$"]
+    :zoom ["^us.zoom.xos$"]
+    :terminal ["^com.apple.Terminal$" "^com.googlecode.iterm2$"]
+    :kitty ["^net.kovidgoyal.kitty$"]
+    :vim ["^org.vim.MacVim$"]
+    :vm ["^com.vmware.fusion$" "^com.parallels.desktop.console$"]
+    :openscad ["^org.openscad.OpenSCAD$"]
+  }
+
+  :devices {
+    :apple-keyboard [{:is_built_in_keyboard true}]
+    :real-keyboard [{:transport USB }] ; This excludes Univeersal Control
+  }
+
+  :templates {
+    :paste "osascript -e '
+      tell application \"System Events\"
+        keystroke \"v\" using command down
+        delay 0.1
+      end tell
+    '"
+
+    :pasteShruggy "osascript -e '
+      set prev to the clipboard
+      set the clipboard to \"¯\\\\_(ツ)_/¯\"
+      tell application \"System Events\"
+        keystroke \"v\" using command down
+        delay 0.1
+      end tell
+      set the clipboard to prev
+    '"
+    }
+
+  :main [
+
+    {:des "Emulate Diverge on MBP" :rules [:apple-keyboard
+      [:##spacebar :right_option nil {:alone :spacebar}] ; holding space is R-Option
+      [:##quote :left_command nil {:alone :quote}] ; holding quote is Command
+      [:!E##e :!Cleft_arrow] ; Option (space bar) E for Home
+      [:!E##g :!Cright_arrow] ; Option (space bar) E for End
+      ;[:!E##x :delete_or_backspace]
+      ;[:!E##f :page_down]
+      ;[:!E##b :page_up]
+    ]}
+
+    ; turn laptop keyboard caps lock into Comman:
+    {:des "Caps lock as Command" :rules [:apple-keyboard
+      [:##caps_lock :left_command nil]
+    ]}
+
+    {:des "Kitty overrides" :rules [:kitty
+      [:##left_command :left_control] ; Command becomes Control
+      [:!Tv :!Cv] ; re-translate control-V as command-V (to paste correctly in Claude)
+      ; I don't think I need this any more --> [:##caps_lock :left_control]
+    ]}
+
+    {:des "MacVim" :rules [ :vim
+      ; reinterpret Command key combos as Control key combos so normal control combos work
+      [:!Ca :!Ta]
+      [:!Cb :!Tb]
+      [:!Cc :!Tc]
+      [:!Cf :!Tf]
+      [:!Ch :!Th]
+      [:!Ci :!Ti]
+      [:!Cj :!Tj]
+      [:!Ck :!Tk]
+      [:!Cl :!Tl]
+      [:!Co :!To]
+      [:!Cr :!Tr]
+      [:!Cv :!Tv]
+      [:!Cw :!Tw]
+      [:!Cx :!Tx]
+    ]}
+
+    {:des "Slack" :rules [ :slack
+      [:!Ck :!CSu] ; Make Slack use the customary key combo for inserting a link.
+    ]}
+
+    {:des "Zoom" :rules [ :zoom
+      [:!Cd :!CSa] ; Make Zoom use Google Meet-like mute key.
+    ]}
+
+    {:des "Command-Tab to Control-Tab (mostly for Chrome)" :rules [
+      [:!C#Rtab :!Ttab] ; Right Shift ("R") is optional ("#")
+      [:!Q#Rtab :!Ttab] ; Right Shift ("R") is optional ("#")
+    ]}
+
+    {:des "Switching apps with Contexts" :rules [ :!vm ; Do not apply this rule to VMs.
+      [:!O#Rtab :!TOCtab]
+      [:!E#Rtab :!TOCtab]
+    ]}
+
+;    {:des "Various ways to generate Option-Space to open Ueli." :rules [ :!vm
+;      [:!COo :!Ospacebar] ; left-command left-option o
+;      [:!CEo :!Ospacebar] ; left-command right-option o  XXX I don't think this one is actually used.
+;      [:!TOo :!Ospacebar] ; left-control left-option o
+;    ]}
+
+    {:des "(Kitty) macOS spaces navigation (control combos to command combos)" :rules [
+      [:!T1 :!C1]
+      [:!T2 :!C2]
+      [:!T3 :!C3]
+      [:!T4 :!C4]
+      [:!T5 :!C5]
+      [:!T6 :!C6]
+      [:!T7 :!C7]
+      [:!T8 :!C8]
+      [:!T9 :!C9]
+      [:!TR0 :!CS0]
+      [:!TR1 :!CS1]
+      [:!TR2 :!CS2]
+
+      [:!TR3 :!CS3]
+      [:!TR4 :!CS4]
+      [:!TR5 :!CS5]
+      [:!TR6 :!CS6]
+      [:!TR7 :!CS7]
+    ]}
+
+    {:des "OpenSCAD key binding tweaks" :rules [ :openscad
+      [:##home :!Cleft_arrow]
+      [:##end :!Cright_arrow]
+    ]}
+
+    {:des "J+K together sends Escape" :rules [
+      [[:j :k] :escape]
+    ]}
+
+    {:des "fancy text insertion" :rules [
+      ;[:!ORcomma [:insert_text "a"]]
+      ;[:!ORperiod [:insert_text "b"]]
+      ;[:!ORs [:insert_text "¯\\_(ツ)_/¯"]]
+      [:!ORperiod [:paste]]
+    ]}
+]}

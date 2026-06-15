@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: ./install [--dry-run] [--apply] [--home PATH] [--backup-dir PATH]
+
+Options:
+  --dry-run          Show what would change. This is the default.
+  --apply            Create symlinks, backing up existing paths first.
+  --home PATH        Install into PATH instead of $HOME.
+  --backup-dir PATH  Move replaced paths here when using --apply.
+  -h, --help         Show this help.
+EOF
+}
+
+script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+target_home="${HOME}"
+apply=0
+backup_dir=""
+
+while (($#)); do
+  case "$1" in
+    --dry-run)
+      apply=0
+      shift
+      ;;
+    --apply)
+      apply=1
+      shift
+      ;;
+    --home)
+      target_home="${2:?--home requires a path}"
+      shift 2
+      ;;
+    --backup-dir)
+      backup_dir="${2:?--backup-dir requires a path}"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+if [[ -z "${backup_dir}" ]]; then
+  backup_dir="${target_home}/.config-backups/$(date +%Y%m%d-%H%M%S)"
+fi
+
+run() {
+  if ((apply)); then
+    "$@"
+  else
+    printf 'would run:'
+    printf ' %q' "$@"
+    printf '\n'
+  fi
+}
+
+describe_existing() {
+  local path="$1"
+
+  if [[ -L "${path}" ]]; then
+    printf 'symlink -> %s' "$(readlink "${path}")"
+  elif [[ -d "${path}" ]]; then
+    printf 'directory'
+  elif [[ -e "${path}" ]]; then
+    printf 'file'
+  else
+    printf 'missing'
+  fi
+}
+
+backup_existing() {
+  local path="$1"
+  local name
+
+  name="$(basename -- "${path}")"
+  run mkdir -p "${backup_dir}"
+  run mv -- "${path}" "${backup_dir}/${name}"
+}
+
+link_one() {
+  local source="$1"
+  local dest="$2"
+  local existing
+
+  if [[ -L "${dest}" && "$(readlink "${dest}")" == "${source}" ]]; then
+    printf 'ok: %s already links to %s\n' "${dest}" "${source}"
+    return
+  fi
+
+  if [[ -e "${dest}" || -L "${dest}" ]]; then
+    existing="$(describe_existing "${dest}")"
+    printf 'backup: %s (%s)\n' "${dest}" "${existing}"
+    backup_existing "${dest}"
+  fi
+
+  run ln -s -- "${source}" "${dest}"
+}
+
+if [[ ! -d "${script_dir}/home" ]]; then
+  echo "install must be run from a complete config checkout" >&2
+  exit 1
+fi
+
+printf 'repo: %s\n' "${script_dir}"
+printf 'home: %s\n' "${target_home}"
+if ((apply)); then
+  printf 'backup dir: %s\n' "${backup_dir}"
+else
+  printf 'mode: dry run\n'
+fi
+
+link_one "${script_dir}/home/.config-mac" "${target_home}/.config"
+link_one "${script_dir}/home/.config-mac" "${target_home}/.config-mac"
+
+while IFS= read -r -d '' item; do
+  name="$(basename -- "${item}")"
+  [[ "${name}" == ".config-mac" ]] && continue
+  link_one "${item}" "${target_home}/${name}"
+done < <(find "${script_dir}/home" -mindepth 1 -maxdepth 1 -print0)
