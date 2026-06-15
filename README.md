@@ -5,7 +5,7 @@ Personal dotfiles and config files imported from the old Dropbox-backed setup in
 ## Layout
 
 - `home/` contains files and directories that should be linked into `$HOME`.
-- `home/.config-mac/` is the active macOS config directory and is linked as both `~/.config` and `~/.config-mac`.
+- `home/.config/` is linked as `~/.config`.
 - `install` creates or updates those symlinks.
 
 ## Install
@@ -31,8 +31,8 @@ This repository intentionally starts with fresh history rather than the old Drop
 Imported:
 
 - committed files from `/Users/benji/Dropbox/Benji/dotfiles`
-- committed Karabiner files from `/Users/benji/Dropbox/Benji/dotfiles/.config-mac/karabiner`
-- live fish config from `/Users/benji/Dropbox/Benji/dotfiles/.config-mac/fish`, excluding generated `fish_variables`
+- committed Karabiner config from the old Dropbox-backed dotfiles
+- live fish config from the old Dropbox-backed dotfiles, excluding generated `fish_variables`
 
 Excluded:
 

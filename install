@@ -118,11 +118,10 @@ else
   printf 'mode: dry run\n'
 fi
 
-link_one "${script_dir}/home/.config-mac" "${target_home}/.config"
-link_one "${script_dir}/home/.config-mac" "${target_home}/.config-mac"
+link_one "${script_dir}/home/.config" "${target_home}/.config"
 
 while IFS= read -r -d '' item; do
   name="$(basename -- "${item}")"
-  [[ "${name}" == ".config-mac" ]] && continue
+  [[ "${name}" == ".config" ]] && continue
   link_one "${item}" "${target_home}/${name}"
 done < <(find "${script_dir}/home" -mindepth 1 -maxdepth 1 -print0)

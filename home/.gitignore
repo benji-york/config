@@ -25,10 +25,10 @@ TAGS
 
 # generated files
 Brewfile.lock.json
-.config-mac/countdown-player/
-.config-mac/fish/fish_variables
-.config-mac/htop/htoprc
-.config-mac/pgcli/
+.config/countdown-player/
+.config/fish/fish_variables
+.config/htop/htoprc
+.config/pgcli/
 local-share-fonts/
 
 # AI tools
@@ -38,29 +38,29 @@ local-share-fonts/
 .aws/
 .ssh/
 .pypirc
-.config-mac/gh/hosts.yml
-.config-mac/gcloud/
-.config-mac/op/
-.config-mac/openai.token*
+.config/gh/hosts.yml
+.config/gcloud/
+.config/op/
+.config/openai.token*
 .irssi/certs/
 
 # generated or machine-local app state
-.config-mac/benchmarking.json
-.config-mac/capriole/
-.config-mac/coc/
-.config-mac/ct/
-.config-mac/gtk-2.0/
-.config-mac/iterm2/AppSupport
-.config-mac/jgit/
-.config-mac/librepcb.org/
-.config-mac/oni2/extensions/
-.config-mac/oni2/global/
-.config-mac/oni2/store/
-.config-mac/oni2/workspace/
-.config-mac/opencode/
-.config-mac/opensoundmeter/
-.config-mac/temporalio/
-.config-mac/uv/
+.config/benchmarking.json
+.config/capriole/
+.config/coc/
+.config/ct/
+.config/gtk-2.0/
+.config/iterm2/AppSupport
+.config/jgit/
+.config/librepcb.org/
+.config/oni2/extensions/
+.config/oni2/global/
+.config/oni2/store/
+.config/oni2/workspace/
+.config/opencode/
+.config/opensoundmeter/
+.config/temporalio/
+.config/uv/
 .config/karabiner/
 .config/coc/
 .vim/local/
