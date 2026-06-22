@@ -716,13 +716,31 @@
           "type" : "basic"
         } ]
       }, {
-        "description" : "J+K together sends Escape",
+        "description" : "J+K and D+F together send Escape",
         "manipulators" : [ {
           "from" : {
             "simultaneous" : [ {
               "key_code" : "j"
             }, {
               "key_code" : "k"
+            } ],
+            "simultaneous_options" : {
+              "detect_key_down_uninterruptedly" : false,
+              "key_down_order" : "insensitive",
+              "key_up_order" : "insensitive",
+              "key_up_when" : "any"
+            }
+          },
+          "to" : [ {
+            "key_code" : "escape"
+          } ],
+          "type" : "basic"
+        }, {
+          "from" : {
+            "simultaneous" : [ {
+              "key_code" : "d"
+            }, {
+              "key_code" : "f"
             } ],
             "simultaneous_options" : {
               "detect_key_down_uninterruptedly" : false,

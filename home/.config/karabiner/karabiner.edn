@@ -124,8 +124,9 @@
       [:##end :!Cright_arrow]
     ]}
 
-    {:des "J+K together sends Escape" :rules [
+    {:des "J+K and D+F together send Escape" :rules [
       [[:j :k] :escape]
+      [[:d :f] :escape]
     ]}
 
     {:des "fancy text insertion" :rules [
